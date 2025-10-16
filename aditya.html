@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Name — Portfolio</title>
+  <meta name="description" content="Portfolio of Your Name — projects, skills, and contact." />
+
+  <!-- font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg: #0b0f19;
+      --panel: #0f1629;
+      --text: #e5e7eb;
+      --muted: #a9b1c6;
+
+      --c1: #00d1ff;   /* accent 1 */
+      --c2: #7c5cff;   /* accent 2 */
+      --c3: #ff6b6b;   /* accent 3 */
+
+      --ring: rgba(124,92,255,.45);
+      --shadow: rgba(2,6,23,.5);
+      --radius: 16px;
+      --ease: cubic-bezier(.22,1,.36,1);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* animated gradient background */
+    .gradient-bg{ position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+    .gradient-bg::before{
+      content:"";
+      position:absolute; inset:-20%;
+      background:
+        radial-gradient(600px 400px at 20% 10%, rgba(124,92,255,.25), transparent 55%),
+        radial-gradient(700px 500px at 80% 50%, rgba(0,209,255,.20), transparent 55%),
+        radial-gradient(600px 450px at 30% 80%, rgba(255,107,107,.18), transparent 55%);
+      filter: blur(40px);
+    }
+    .gradient-bg::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(120deg, var(--c1), var(--c2), var(--c3));
+      background-size: 200% 200%;
+      mix-blend-mode: overlay;
+      opacity:.25;
+      animation: gradientMove 18s var(--ease) infinite;
+    }
+    @keyframes gradientMove{
+      0%{background-position: 0% 50%}
+      50%{background-position: 100% 50%}
+      100%{background-position: 0% 50%}
+    }
+
+    .wrap{ width: min(1120px, 92%); margin-inline:auto; }
+
+    /* nav */
+    .nav{
+      position: sticky; top:0; z-index: 50;
+      background: linear-gradient(to bottom, rgba(10,14,25,.75), rgba(10,14,25,.35));
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav .bar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+    }
+    .brand{
+      color: var(--text);
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: .2px;
+    }
+    .menu a{
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 18px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      transition: color .2s ease, background .3s var(--ease);
+    }
+    .menu a:hover{ color: var(--text); background: rgba(255,255,255,.06); }
+
+    /* hero */
+    .hero{ padding: 72px 0 36px; }
+    .kicker{
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: .8rem;
+      margin: 6px 0 10px;
+    }
+    .hero h1{
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      line-height: 1.05;
+      margin: 0 0 12px;
+      font-weight: 800;
+    }
+    .gradient-text{
+      background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 4px 18px rgba(124,92,255,.25));
+    }
+    .hero .sub{
+      color: var(--muted);
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      max-width: 60ch;
+      margin: 0 0 22px;
+    }
+    .actions{ display:flex; gap:12px; flex-wrap: wrap; }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-decoration:none;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,.1);
+      transition: transform .2s var(--ease), box-shadow .2s var(--ease), background .2s var(--ease), border-color .2s var(--ease);
+      will-change: transform;
+    }
+    .btn.primary{
+      color:#0b0f19;
+      background: linear-gradient(90deg, var(--c2), var(--c1) 50%, var(--c3));
+      background-size: 220% 100%;
+      box-shadow: 0 10px 30px -12px var(--ring);
+      animation: shimmer 8s linear infinite;
+    }
+    @keyframes shimmer{
+      0%{background-position: 0% 50%}
+      100%{background-position: 200% 50%}
+    }
+    .btn.primary:hover{ transform: translateY(-2px); box-shadow: 0 16px 40px -12px var(--ring); }
+    .btn.ghost{
+      color: var(--text);
+      background: rgba(255,255,255,.04);
+    }
+    .btn.ghost:hover{ background: rgba(255,255,255,.08); transform: translateY(-2px); }
+
+    .section{ padding: 56px 0; }
+    .section-head h2{
+      margin:0 0 4px;
+      font-size: clamp(1.6rem, 3.6vw, 2.2rem);
+    }
+    .section-head .muted{ color: var(--muted); margin:0 0 22px; }
+
+    /* grid + cards */
+    .grid{ display:grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
+    .card{
+      grid-column: span 12;
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 10px 24px -16px var(--shadow);
+      transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-color .3s var(--ease);
+    }
+    .card:hover{ transform: translateY(-6px); box-shadow: 0 18px 42px -18px var(--shadow); border-color: rgba(255,255,255,.16); }
+    .thumb{
+      aspect-ratio: 16/9;
+      background:
+        linear-gradient(120deg, rgba(124,92,255,.25), rgba(0,209,255,.18), rgba(255,107,107,.15)),
+        radial-gradient(1200px 200px at -200px -200px, rgba(255,255,255,.10), transparent);
+      background-size: 180% 180%;
+      animation: gradientMove 16s var(--ease) infinite;
+    }
+    .card-body{ padding: 18px; }
+    .card h3{ margin: 2px 0 6px; font-size: 1.1rem; }
+    .card p{ margin: 0 0 10px; color: var(--muted); }
+    .tags{ display:flex; flex-wrap: wrap; gap:8px; padding:0; margin: 8px 0 12px; list-style:none; }
+    .tags li{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      font-size:.85rem; color: #cbd5e1;
+    }
+    .links{ display:flex; gap:14px; }
+    .link{
+      color: var(--text);
+      text-decoration: none;
+      position: relative;
+    }
+    .link::after{
+      content:"";
+      position:absolute; left:0; right:0; bottom:-2px; height:2px;
+      background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .35s var(--ease);
+    }
+    .link:hover::after{ transform: scaleX(1); }
+
+    /* about */
+    .about{
+      display:grid; grid-template-columns: 1fr; gap: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.08);
+      padding: 22px; border-radius: var(--radius);
+    }
+    .avatar{
+      width: 88px; height: 88px; border-radius: 50%;
+      background: linear-gradient(120deg, var(--c2), var(--c1));
+      display: inline-block;
+      box-shadow: inset 0 0 0 4px rgba(255,255,255,.08), 0 10px 30px -12px var(--ring);
+    }
+    .about p{ margin: 0; color: var(--muted); }
+
+    /* skills */
+    .chips{ display:flex; flex-wrap: wrap; gap:10px; list-style:none; padding:0; margin: 8px 0 0; }
+    .chips li{
+      padding: 8px 12px; border-radius: 10px;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.1);
+      color:#d1d5db; font-weight:600; font-size:.92rem;
+    }
+
+    /* contact */
+    .contact{
+      display:grid; gap: 14px;
+      background: radial-gradient(600px 200px at 0% 0%, rgba(124,92,255,.15), transparent 60%), rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      padding: 24px; border-radius: var(--radius);
+    }
+    .contact p{ margin:0 0 8px; color: var(--muted); overflow-wrap: anywhere; }
+    .contact .btn{ width:max-content; }
+
+    /* footer */
+    footer{ padding: 40px 0 60px; color: var(--muted); }
+    .social{ display:flex; gap:14px; }
+    .social a{ color: var(--muted); text-decoration:none; }
+    .social a:hover{ color: var(--text); }
+
+    /* reveal on scroll */
+    [data-reveal]{ opacity:0; transform: translateY(16px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+    .reveal-visible{ opacity:1; transform: none; }
+
+    /* responsive */
+    @media (min-width: 700px){
+      .about{ grid-template-columns: 120px 1fr; align-items:center; }
+      .card{ grid-column: span 6; }
+    }
+    @media (min-width: 1024px){
+      .card{ grid-column: span 4; }
+    }
+
+    /* reduce motion support */
+    @media (prefers-reduced-motion: reduce){
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="gradient-bg" aria-hidden="true"></div>
+
+  <header class="nav">
+    <div class="wrap bar">
+      <a class="brand" href="#top">Your Name</a>
+      <nav class="menu" aria-label="Primary">
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="wrap">
+    <section class="hero" data-reveal>
+      <p class="kicker">designer • developer</p>
+      <h1>hi, i’m <span class="gradient-text">Your Name</span>.</h1>
+      <p class="sub">i build fast, accessible, delightful web experiences with a focus on clean design and smooth micro‑interactions.</p>
+      <div class="actions">
+        <a class="btn primary" href="#projects">view projects</a>
+        <a class="btn ghost" href="resume.pdf" download>download cv</a>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="section-head" data-reveal>
+        <h2>featured projects</h2>
+        <p class="muted">a few things i’ve built recently.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card" data-reveal>
+          <div class="thumb" aria-hidden="true"></div>
+          <div class="card-body">
+            <h3>project title one</h3>
+            <p>short sentence on what it does and the outcome (e.g., +25% conversion, 1.2s LCP).</p>
+            <ul class="tags"><li>react</li><li>typescript</li><li>framer motion</li></ul>
+            <div class="links">
+              <a class="link" href="#" target="_blank" rel="noopener">live</a>
+              <a class="link" href="#" target="_blank" rel="noopener">code</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" data-reveal>
+          <div class="thumb" aria-hidden="true"></div>
+          <div class="card-body">
+            <h3>project title two</h3>
+            <p>explain the problem, what you built, and the tech used in one line.</p>
+            <ul class="tags"><li>next.js</li><li>tailwind</li><li>vercel</li></ul>
+            <div class="links">
+              <a class="link" href="#" target="_blank" rel="noopener">live</a>
+              <a class="link" href="#" target="_blank" rel="noopener">code</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" data-reveal>
+          <div class="thumb" aria-hidden="true"></div>
+          <div class="card-body">
+            <h3>project title three</h3>
+            <p>focus on results: metrics, performance, or user impact.</p>
+            <ul class="tags"><li>node</li><li>graphql</li><li>aws</li></ul>
+            <div class="links">
+              <a class="link" href="#" target="_blank" rel="noopener">live</a>
+              <a class="link" href="#" target="_blank" rel="noopener">code</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="about" data-reveal>
+        <div><span class="avatar" aria-hidden="true"></span></div>
+        <div>
+          <h2>about me</h2>
+          <p>i’m a front‑end/dev who loves design systems, motion, and performance. i enjoy turning complex problems into simple, beautiful interfaces.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="section-head" data-reveal>
+        <h2>skills</h2>
+        <p class="muted">tools and technologies i use.</p>
+      </div>
+      <ul class="chips" data-reveal>
+        <li>html</li><li>css</li><li>javascript</li><li>react</li><li>next.js</li><li>node</li><li>typescript</li><li>tailwind</li><li>framer motion</li><li>figma</li><li>graphql</li>
+      </ul>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="contact" data-reveal>
+        <h2>let’s work together</h2>
+        <p>email: <a class="link" href="mailto:you@example.com">you@example.com</a></p>
+        <a class="btn primary" href="mailto:you@example.com">say hello</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <div class="social">
+      <a href="#" target="_blank" rel="noopener">github</a>
+      <a href="#" target="_blank" rel="noopener">linkedin</a>
+      <a href="#" target="_blank" rel="noopener">twitter</a>
+    </div>
+    <p style="margin-top:10px;">© <span id="year"></span> Your Name. all rights reserved.</p>
+  </footer>
+
+  <script>
+    // reveal-on-scroll
+    const observer = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add('reveal-visible');
+          observer.unobserve(e.target);
+        }
+      }
+    }, { threshold: 0.18 });
+    document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+
+    // current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

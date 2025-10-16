@@ -1,0 +1,451 @@
+/* =========== General Setup & Variables =========== */
+:root {
+    --bg-gradient-start: #1f0c4e;
+    --bg-gradient-end: #0c1a3e;
+    --primary-accent: #6c5ce7;
+    --secondary-accent: #a29bfe;
+    --text-color: #e0e0e0;
+    --heading-color: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.08);
+    --card-border: rgba(255, 255, 255, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    background-attachment: fixed;
+    line-height: 1.7;
+}
+
+/* --- Slide Up Animation Keyframes --- */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3, h4 {
+    color: var(--heading-color);
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* =========== Navigation Bar =========== */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(15, 12, 41, 0.5);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--card-border);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    padding: 0 5%;
+}
+
+.logo a {
+    color: var(--heading-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-accent);
+}
+
+
+/* --- New Section: Approach Card --- */
+
+/* The main section container */
+#approach {
+    padding: 100px 20px; /* Add some spacing around the card */
+    min-height: 80vh; /* Give the section some height */
+    display: flex;
+    align-items: center; /* Vertically center the card */
+    justify-content: flex-start; /* Align card to the left */
+    background: url('https://images.unsplash.com/photo-1554474051-02561b3c0702?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+    /* IMPORTANT: Replace the above URL with your own background image! */
+    position: relative; /* Needed for the overlay */
+}
+
+/* This adds a dark tint over the background image so the white text is readable */
+#approach::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    z-index: 1;
+}
+
+
+/* The main card style, inspired by your image */
+.approach-card {
+    background-color: var(--card-bg);
+    backdrop-filter: blur(5px);
+    /* background-color: rgba(0, 0, 0, 0.85); */
+     /* Semi-transparent black background */
+    color: #ffffff; /* White text */
+    padding: 50px 40px 50px 60px; /* Top, Right, Bottom, Left padding */
+    max-width: 550px; /* Limit the width of the card */
+    border-radius: 12px; /* Rounded corners */
+    position: relative; /* Required for the decorative line and content */
+    z-index: 2; /* Ensure card is on top of the background overlay */
+    margin-left: 5%; /* Push the card in from the left edge */
+}
+
+/* The decorative white line on the left */
+.approach-card::before {
+    content: '';
+    position: absolute;
+    left: 30px; /* Position the line inside the padding area */
+    top: 50px; /* Start it below the top edge */
+    bottom: 50px; /* End it above the bottom edge */
+    width: 2px;
+    background-color: rgba(255, 255, 255, 0.7); /* White, slightly transparent line */
+}
+
+.approach-card h2 {
+    font-size: 2.5rem; /* Large heading */
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 25px;
+}
+
+.approach-card p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 35px;
+    color: rgba(255, 255, 255, 0.85); /* Slightly off-white for better readability */
+}
+
+/* The "Read More" button */
+.read-more-btn {
+    display: inline-flex; /* Use flexbox for easy alignment */
+    align-items: center;
+    border: 1px solid #ffffff;
+    border-radius: 8px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 1rem;
+    overflow: hidden; /* Ensures the inner elements conform to the border-radius */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Style for the text part of the button */
+.read-more-btn span {
+    padding: 12px 24px;
+}
+
+/* Style for the icon part of the button */
+.read-more-btn i {
+    padding: 12px 24px;
+    border-left: 1px solid #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the button */
+.read-more-btn:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.read-more-btn:hover i {
+    background-color: rgba(0, 0, 0, 0.05); /* Slightly different background for icon on hover */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    #approach {
+        justify-content: center; /* Center the card on smaller screens */
+        padding: 60px 15px;
+    }
+    .approach-card {
+        margin-left: 0;
+        padding: 40px 30px 40px 50px;
+    }
+    .approach-card h2 {
+        font-size: 2rem;
+    }
+}
+
+/* =========== Hero Section =========== */
+#hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    padding: 0 20px;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    color: var(--secondary-accent);
+}
+
+.cta-button {
+    display: inline-block;
+    background: var(--primary-accent);
+    color: var(--heading-color);
+    padding: 12px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.profile-button {
+    display: inline-block;
+    background: var(--primary-accent);
+    color: var(--heading-color);
+    padding: 8px 14px;
+    margin-bottom: 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 400;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.cta-button:hover {
+    background: var(--secondary-accent);
+    transform: translateY(-3px);
+}
+
+/* =========== Content Sections =========== */
+.content-section {
+    padding: 100px 0;
+}
+
+#about p {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+/* =========== Shared Card Style =========== */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px; /* Rounded corners for all boxes */
+    padding: 30px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* =========== Founders Section =========== */
+.founders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.founder-card img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-accent);
+    margin-bottom: 20px;
+}
+
+.founder-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.founder-card h4 {
+    color: var(--secondary-accent);
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+.about-founder {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+.social-links a {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--primary-accent);
+}
+
+/* =========== Projects Section =========== */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.project-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.project-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.project-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: var(--secondary-accent);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.project-link:hover {
+    border-color: var(--secondary-accent);
+}
+
+/* =========== Footer =========== */
+footer {
+    background: rgba(15, 12, 41, 0.7);
+    padding: 60px 0;
+    text-align: center;
+}
+
+.footer-social-links {
+    margin: 20px 0;
+}
+
+.footer-social-links a {
+    color: var(--heading-color);
+    font-size: 1.8rem;
+    margin: 0 15px;
+    transition: color 0.3s ease;
+}
+
+.footer-social-links a:hover {
+    color: var(--primary-accent);
+}
+
+.copyright {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: var(--secondary-accent);
+}
+
+/* =========== Responsive Design =========== */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 2rem;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .nav-links {
+        /* Basic responsive nav: can be enhanced with JavaScript for a hamburger menu */
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(15, 12, 41, 0.9);
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        display: none; /* Toggle with JS for a hamburger menu */
+        /* For now, let's keep it simple and assume few links */
+    }
+
+    /* A simple fallback for small screens if JS is not used */
+    .nav-links li {
+        padding: 5px 0;
+    }
+}
+
+/* --- Scroll-based Slide Animation --- */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease-out;
+}
+
+/* --- Active: Slide Up when in view --- */
+.scroll-animate.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Slide Down when leaving view --- */
+.scroll-animate.leave {
+  opacity: 0;
+  transform: translateY(50px);
+}
